@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class Login {
 	
 	private boolean hasError = false;
-	private String loginError = "You need to type in a username and password combination!";
+	private String loginError = "You need enter a username and password combination!";
 	private String faultyLogin = "Wrong username or password combination!";
 	private String currentError = null;
 	
@@ -15,17 +15,18 @@ public class Login {
 		 this.users.put("admin", "root");
 	}
 	
-	public boolean Login(String user, String pass) {
-		if(user == "" || pass == "") {
-			this.hasError = true;
-			this.currentError = loginError;
-			return false;
+	public boolean Login(User user) {
+		if(user.Valid()) {
+			return Validate(user);
 		}
-		return Validate(user, pass);
+		this.hasError = true;
+		this.currentError = loginError;
+		return false;
 	}
 	
-	private boolean Validate(String user, String pass) {
-		if(this.users.containsKey(user) && this.users.get(user) == pass) {
+	private boolean Validate(User user) {
+
+		if(this.users.containsKey(user.GetUsername()) && this.users.get(user.GetUsername()) == user.GetPassword()) {
 			this.hasError = false;
 			this.currentError = null;
 			return true;

@@ -8,48 +8,41 @@ import org.junit.Assert.*;
 public class TestLogin {
 	
 	User mockedUser = null;
+	Login mockedLogin = null;
 	Login login = null;
 
 	@Before
 	public void setUp() throws Exception {
 		login = new Login();
+		mockedLogin = mock(Login.class);
+		
 		mockedUser = mock(User.class);
-		when(login.Login(mockedUser)).thenReturn(true);
+		when(mockedLogin.Login(mockedUser)).thenReturn(true);
 	}
 
 	@Test
 	public void TestMockedLogin() {
-		assertTrue(login.Login(mockedUser));
-		verify(login).Login(mockedUser);
+		assertTrue(mockedLogin.Login(mockedUser));
+		verify(mockedLogin).Login(mockedUser);
 	}
 	
 	@Test
 	public void TestLoginError() {
 		
-		User faultyUser = new User("test", "test");
+		User emptyUser = new User("", "");
 		
-		assertFalse(login.Login(faultyUser));
-		verify(login).Login(faultyUser);
+		assertFalse(login.Login(emptyUser));
 		assertTrue(login.HasError());
-		verify(login).HasError();
-		assertEquals(login.GetError(), login.GetLoginError());
-		verify(login).GetError();
-		verify(login).GetLoginError();
+		assertEquals(login.GetLoginError(), login.GetError());
 	}
 	
 	@Test
 	public void TestFaultyLogin() {
 		
-		User faultyUser = new User("", "");
+		User faultyUser = new User("test", "test");
 		
 		assertFalse(login.Login(faultyUser));
-		verify(login).Login(faultyUser);
 		assertTrue(login.HasError());
-		verify(login).HasError();
-		assertEquals(login.GetError(), login.GetFaultyLogin());
-		verify(login).GetError();
-		verify(login).GetFaultyLogin();
+		assertEquals(login.GetFaultyLogin(), login.GetError());
 	}
-	
-	
 }
