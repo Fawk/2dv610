@@ -22,5 +22,19 @@ public class TestLogin {
 	public void TestLoginCredentials() {
 		assertTrue(mockedLogin.Login(username, password));
 	}
+	
+	@Test
+	public void TestLoginError() {
+		assertFalse(mockedLogin.Login("", ""));
+		assertTrue(mockedLogin.hasError);
+		assertEquals(mockedLogin.GetError(), mockedLogin.loginError);
+	}
+	
+	@Test
+	public void TestFaultyLogin() {
+		assertFalse(mockedLogin.Login("test", "test"));
+		assertTrue(mockedLogin.hasError);
+		assertEquals(mockedLogin.GetError(), mockedLogin.faultyLogin);
+	}
 
 }
