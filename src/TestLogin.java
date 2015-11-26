@@ -15,6 +15,7 @@ public class TestLogin {
 	@Before
 	public void setUp() throws Exception {
 		mockedLogin = mock(Login.class);
+		when(mockedLogin.Login(username, password)).thenReturn(true);
 	}
 
 	@Test
