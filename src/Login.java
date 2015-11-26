@@ -4,9 +4,11 @@ import java.util.HashMap;
 public class Login {
 	
 	private boolean hasError = false;
+	private boolean loggedIn = false;
 	private String loginError = "You need enter a username and password combination!";
 	private String faultyLogin = "Wrong username or password combination!";
 	private String currentError = null;
+	
 	
 	private HashMap<String, String> users;
 	
@@ -29,6 +31,7 @@ public class Login {
 		if(this.users.containsKey(user.GetUsername()) && this.users.get(user.GetUsername()) == user.GetPassword()) {
 			this.hasError = false;
 			this.currentError = null;
+			this.loggedIn = true;
 			return true;
 		}
 		
@@ -51,5 +54,9 @@ public class Login {
 	
 	public String GetFaultyLogin() {
 		return this.faultyLogin;
+	}
+	
+	public boolean LoggedIn() {
+		return this.loggedIn;
 	}
 }
