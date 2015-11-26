@@ -21,20 +21,25 @@ public class TestLogin {
 	@Test
 	public void TestLoginCredentials() {
 		assertTrue(mockedLogin.Login(username, password));
+		verify(mockedLogin).Login(username, password);
 	}
 	
 	@Test
 	public void TestLoginError() {
 		assertFalse(mockedLogin.Login("", ""));
+		verify(mockedLogin).Login("", "");
 		assertTrue(mockedLogin.hasError);
 		assertEquals(mockedLogin.GetError(), mockedLogin.loginError);
+		verify(mockedLogin).GetError();
 	}
 	
 	@Test
 	public void TestFaultyLogin() {
 		assertFalse(mockedLogin.Login("test", "test"));
+		verify(mockedLogin).Login("test", "test");
 		assertTrue(mockedLogin.hasError);
 		assertEquals(mockedLogin.GetError(), mockedLogin.faultyLogin);
+		verify(mockedLogin).GetError();
 	}
 
 }
