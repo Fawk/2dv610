@@ -45,4 +45,14 @@ public class TestLogin {
 		assertTrue(login.HasError());
 		assertEquals(login.GetFaultyLogin(), login.GetError());
 	}
+	
+	@Test
+	public void TestWorkingLogin() {
+		
+		User user = new User("admin", "root");
+		assertTrue(login.Login(user));
+		assertFalse(login.HasError());
+		assertTrue(login.LoggedIn());
+		
+	}
 }
